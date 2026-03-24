@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Barbearia</title>
+
+<style>
+
+body{
+background:#f0f0f0;
+font-family:Arial;
+margin:0;
+}
+
+.container{
+display:flex;
+justify-content:center;
+align-items:flex-start;
+gap:60px;
+padding:40px;
+}
+
+/* SITE NO MEIO */
+
+.site{
+text-align:center;
+width:350px;
+}
+
+/* VIDEOS */
+
+.video{
+width:250px;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* BOTÕES */
+
+button{
+background:black;
+color:white;
+padding:10px 20px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:rgb(0,17,255);
+transform:scale(1.1);
+}
+
+input{
+padding:8px;
+border-radius:5px;
+border:1px solid #ccc;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- VIDEO ESQUERDO -->
+
+<video class="video" controls>
+<source src="nelson.mp4" type="video/mp4">
+</video>
+
+<!-- SITE -->
+
+<div class="site">
+
+<h1>BARBERIA</h1>
+
+<p>VENHAM CORTAR SEU CABELO</p>
+
+<p>HORÁRIO DE FUNCIONAMENTO: 8:00 - 18:00</p>
+
+<p>VENHA FAZER SUA AGENDA</p>
+
+<input type="text" placeholder="Escolha seu horário">
+<button onclick="fazerAgenda()">AGENDA</button>
+
+<br><br>
+
+<input type="feedback" placeholder="Digite seu feedback">
+<button onclick="enviarfeedback()">ENVIAR</button>
+<form action="https://formspree.io/f/xreyykkk" method="POST">
+
+<h2>Reclame Aqui</h2>
+
+<form action="https://formspree.io/f/xreyykkk" method="POST">
+
+<input type="text" name="reclamacao" placeholder="Digite sua reclamação" required>
+
+<br><br>
+
+<button type="submit">RECLAME</button>
+
+</form>
+
+<br><br>
+
+<a href="https://www.instagram.com/nelsoncabeloebarba/" target="_blank">
+Siga-nos no Instagram
+</a>
+
+<p>📍 Setor O, Ceilândia-DF</p>
+
+</div>
+
+<!-- VIDEO DIREITO -->
+
+<video class="video" controls>
+<source src="projeto.mp4" type="video/mp4">
+</video>
+
+</div>
+
+<script>
+
+alert("Bem-vindo à nossa barbearia!");
+
+function fazerAgenda(){
+alert("AGENDAMENTO REALIZADO COM SUCESSO!");
+}
+
+function enviarFormulario(){
+alert("FORMULÁRIO ENVIADO COM SUCESSO!");
+}
+
+</script>
+
+</body>
+</html>

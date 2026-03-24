@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Barbearia</title>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:#f0f0f0;
+}
+
+/* TELA 1 */
+#principal{
+text-align:center;
+padding:40px;
+}
+
+.video, .img-botao{
+width:250px;
+border-radius:12px;
+cursor:pointer;
+transition:0.3s;
+margin:10px;
+}
+
+.video:hover, .img-botao:hover{
+transform:scale(1.05);
+}
+
+/* TELA 2 */
+#cortes{
+display:none;
+text-align:center;
+padding:40px;
+}
+
+.card{
+background:white;
+padding:20px;
+margin:10px;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+display:inline-block;
+cursor:pointer;
+transition:0.3s;
+}
+
+.card:hover{
+transform:scale(1.1);
+}
+
+/* inputs */
+input{
+padding:8px;
+margin:5px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+button{
+padding:10px 20px;
+background:black;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+margin:5px;
+}
+
+/* ticket */
+.ticket{
+background:white;
+padding:15px;
+margin:10px auto;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+width:250px;
+position:relative;
+}
+
+.remover{
+background:red;
+position:absolute;
+top:10px;
+right:10px;
+border-radius:50%;
+padding:5px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🔥 TELA 1 -->
+<div id="principal">
+
+<h1>BARBERIA 💈</h1>
+<p>Clique no vídeo ou imagem</p>
+
+<video class="video" onclick="abrirCortes()" controls>
+<source src="nelson.mp4">
+</video>
+
+<img src="OIP.webp" class="img-botao" onclick="abrirCortes()">
+
+</div>
+
+<!-- 🔥 TELA 2 -->
+<div id="cortes">
+
+<h1>Escolha seu corte ✂️</h1>
+
+<div class="card" onclick="selecionar('Low Fade')">Low Fade</div>
+<div class="card" onclick="selecionar('Mid Fade')">Mid Fade</div>
+<div class="card" onclick="selecionar('Social')">Social</div>
+<div class="card" onclick="selecionar('Degradê')">Degradê</div>
+<div class="card" onclick="selecionar('Sobrancelha')">Sobrancelha</div>
+
+<p id="corteEscolhido"></p>
+
+<input id="Nome" placeholder="Nome">
+<input id="Horario" placeholder="Horário (ex: 14:00)">
+
+<br>
+
+<button onclick="agendar()">AGENDAR</button>
+<button onclick="voltar()">VOLTAR</button>
+
+<h2>Agendamentos</h2>
+<div id="tickets"></div>
+
+</div>
+
+<script>
+
+let corteAtual = "";
+let horariosOcupados = [];
+
+// trocar layout
+function abrirCortes(){
+document.getElementById("principal").style.display = "none";
+document.getElementById("cortes").style.display = "block";
+}
+
+function voltar(){
+document.getElementById("principal").style.display = "block";
+document.getElementById("cortes").style.display = "none";
+}
+
+// selecionar corte
+function selecionar(corte){
+corteAtual = corte;
+document.getElementById("corteEscolhido").innerText =
+"Corte escolhido: " + corte;
+}
+
+// agendar
+function agendar(){
+
+let nome = document.getElementById("Nome").value;
+let hora = document.getElementById("Horario").value;
+
+// validar vazio
+if(!hora){
+alert("Digite um horário!");
+return;
+}
+
+// separar hora
+let partes = hora.split(":");
+let h = parseInt(partes[0]);
+let m = parseInt(partes[1]);
+
+// 🔥 limite de horário
+if(h < 9 || h > 18){
+alert("❌ Só pode entre 09:00 e 18:00");
+return;
+}
+
+// impedir 18:30
+if(h === 18 && m > 0){
+alert("❌ Último horário é 18:00");
+return;
+}
+
+// validar corte
+if(!corteAtual){
+alert("Escolha um corte!");
+return;
+}
+
+// impedir repetido
+if(horariosOcupados.includes(hora)){
+alert("❌ Horário já ocupado!");
+return;
+}
+
+// salvar horário
+horariosOcupados.push(hora);
+
+// criar ticket
+let ticket = document.createElement("div");
+ticket.className = "ticket";
+
+ticket.innerHTML = `
+<button class="remover" onclick="cancelar('${hora}', this)">❌</button>
+<h3>🎫 Agendamento</h3>
+<p><b>Nome:</b> ${nome}</p>
+<p><b>Corte:</b> ${corteAtual}</p>
+<p><b>Horário:</b> ${hora}</p>
+`;
+
+document.getElementById("tickets").appendChild(ticket);
+
+// limpar
+document.getElementById("Nome").value = "";
+document.getElementById("Horario").value = "";
+document.getElementById("corteEscolhido").innerText = "";
+corteAtual = "";
+
+}
+
+// cancelar
+function cancelar(hora, botao){
+horariosOcupados = horariosOcupados.filter(h => h !== hora);
+botao.parentElement.remove();
+}
+
+</script>
+
+</body>
+</html>
